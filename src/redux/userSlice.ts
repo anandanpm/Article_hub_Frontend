@@ -1,11 +1,12 @@
+
+
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import userApi from '../api/userApi';
 import type { RootState } from './store';
 import type { AuthState, LoginData, UserLoginData, UserRegistrationData, UserState } from '../entities/interface';
 
-
-
-
+// Initial state
 const initialState: AuthState = {
   user: null,
   isAuthenticated: false,
@@ -41,10 +42,27 @@ export const loginUser = createAsyncThunk<
   async (values: UserLoginData, { rejectWithValue }) => {
     try {
       const response = await userApi.login(values);
-      return response as LoginData
+      
+      return response as LoginData;
     } catch (error: any) {
       return rejectWithValue({
         message: error.response?.data?.message || 'Email or password is incorrect',
+      });
+    }
+  }
+);
+
+// Added logout thunk for API call if needed
+export const logoutUser = createAsyncThunk(
+  'auth/logout',
+  async (_, { rejectWithValue }) => {
+    try {
+      
+       await userApi.logoutUser();
+      return true;
+    } catch (error: any) {
+      return rejectWithValue({
+        message: error.response?.data?.message || 'Logout failed',
       });
     }
   }
@@ -61,8 +79,13 @@ const userSlice = createSlice({
       state.registrationSuccess = false;
     },
     logout: (state) => {
+      // Clear user data from state
       state.isAuthenticated = false;
       state.user = null;
+      state.error = null;
+      
+      // Remove token from localStorage
+      localStorage.removeItem('token');
     }
   },
   extraReducers: (builder) => {
@@ -82,6 +105,7 @@ const userSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload || { message: 'Registration failed' };
     });
+    
     // Login user cases
     builder.addCase(loginUser.pending, (state) => {
       state.isLoading = true;
@@ -96,6 +120,12 @@ const userSlice = createSlice({
       state.isLoading = false;
       state.isAuthenticated = false;
       state.error = action.payload || { message: 'Login failed' };
+    });
+    
+    builder.addCase(logoutUser.fulfilled, (state) => {
+      state.isAuthenticated = false;
+      state.user = null;
+      state.error = null;
     });
   }
 });

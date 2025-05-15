@@ -15,9 +15,7 @@ const ArticleCreationPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>({ type: '', message: '' });
-  const userId = useSelector((state: ReduxData) => state.user.id);
-  // Categories for dropdown selection
-  console.log(userId,'is the userId is comming from the redux')
+  const userId = useSelector((state: ReduxData) => state.user.user.id);
   const categories: string[] = [
     'Technology',
     'Science',

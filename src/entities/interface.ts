@@ -45,6 +45,7 @@ export interface LoginData {
 export interface ReduxData{
   payload: any;
   user:{
+    user: any;
     id: string;
     firstName: string;
     lastName: string;

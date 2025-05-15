@@ -28,6 +28,18 @@ import { AxiosError } from 'axios';
     }
    },
 
+   logoutUser: async (): Promise<void> => {
+    try {
+      let result = await axiosInstance.post('/logout'); 
+      if(result){
+        console.log('Logout successful');
+      }
+    } catch (error) {
+      const axiosError = error as AxiosError<ErrorResponse>;
+      throw axiosError.response?.data || { message: 'Network error occurred' };
+    }
+  },
+
     createArticle: async (articleData: ArticleData): Promise<ArticleResponse> => {
     try {
       console.log('Article data:', articleData);

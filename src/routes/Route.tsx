@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { type RouteObject } from "react-router-dom";
 import HomePage from '../pages/HomePage';
@@ -6,6 +5,8 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import ArticleCreationPage from '../pages/ArticleCreation';
 import AppLayout from '../layout/Applayout';
+import Dashboard from '../pages/Dashboard';
+import ProtectedRoute from "./Protectroute"
 
 export const routes: RouteObject[] = [
   {
@@ -25,9 +26,20 @@ export const routes: RouteObject[] = [
         path: "register", 
         element: React.createElement(Register)
       },
-      { 
-        path: "create", 
-        element: React.createElement(ArticleCreationPage)
+      
+      // Protected routes
+      {
+        element: React.createElement(ProtectedRoute),
+        children: [
+          { 
+            path: "create", 
+            element: React.createElement(ArticleCreationPage)
+          },
+          {
+            path: "dashboard",
+            element: React.createElement(Dashboard)
+          }
+        ]
       }
     ]
   }

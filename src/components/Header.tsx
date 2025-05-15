@@ -1,14 +1,21 @@
+
+
 import type React from "react"
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { BookOpen, Menu, X, Home, PenTool, List, Edit, User, LogOut } from "lucide-react"
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import type { AppDispatch } from "../redux/store" 
+import { logout, logoutUser } from "../redux/userSlice" 
 import "./Header.scss"
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState<boolean>(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false)
   const location = useLocation()
+  const dispatch: AppDispatch = useDispatch()
+  const navigate = useNavigate()
 
   // Navigation items
   const navItems = [
@@ -52,10 +59,12 @@ const Header: React.FC = () => {
 
   // Handle logout
   const handleLogout = () => {
-    // Add your logout logic here
-    console.log("User logged out")
-    // Example: redirect to login page
-    // navigate("/login");
+    dispatch(logout())
+    dispatch(logoutUser())
+    navigate("/login")
+    
+    // Close mobile menu if open
+    closeMobileMenu()
   }
 
   // Animation variants
