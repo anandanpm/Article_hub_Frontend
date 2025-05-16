@@ -61,7 +61,7 @@ const Header: React.FC = () => {
   const handleLogout = () => {
     dispatch(logout())
     dispatch(logoutUser())
-    navigate("/login")
+    navigate("/")
     
     // Close mobile menu if open
     closeMobileMenu()

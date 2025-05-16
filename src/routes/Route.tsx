@@ -7,6 +7,7 @@ import ArticleCreationPage from '../pages/ArticleCreation';
 import AppLayout from '../layout/Applayout';
 import Dashboard from '../pages/Dashboard';
 import ProtectedRoute from "./Protectroute"
+import ArticleDetail from '../pages/ArticleDetail';
 
 export const routes: RouteObject[] = [
   {
@@ -38,6 +39,10 @@ export const routes: RouteObject[] = [
           {
             path: "dashboard",
             element: React.createElement(Dashboard)
+          },
+          {
+            path:"article/:articleid",
+            element:React.createElement(ArticleDetail)
           }
         ]
       }

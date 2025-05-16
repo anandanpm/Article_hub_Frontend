@@ -17,16 +17,16 @@ const ArticleCreationPage: React.FC = () => {
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>({ type: '', message: '' });
   const userId = useSelector((state: ReduxData) => state.user.user.id);
   const categories: string[] = [
-    'Technology',
-    'Science',
-    'Health',
-    'Business',
-    'Entertainment',
-    'Sports',
-    'Politics',
-    'Travel',
-    'Education',
-    'Other'
+    'technology',
+    'science',
+    'health',
+    'business',
+    'entertainment',
+    'sports',
+    'politics',
+    'travel',
+    'education',
+    'other'
   ];
 
   // Form validation schema using Yup

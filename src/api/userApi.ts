@@ -50,6 +50,46 @@ import { AxiosError } from 'axios';
       throw axiosError.response?.data || { message: 'Network error occurred' };
     }
   },
+
+   getArticlesByPreferences: async (preferences: string[],userId:string) => {
+    try {
+      const response = await axiosInstance.post("/articles/recommendations", { preferences,userId })
+      return response.data
+    } catch (error) {
+      const axiosError = error as AxiosError<ErrorResponse>
+      throw axiosError.response?.data || { message: "Network error occurred" }
+    }
+  },
+
+  likeArticle: async (articleId: string,userId:string) => {
+    try {
+      const response = await axiosInstance.post(`/articles/${articleId}/like`,{userId})
+      return response.data
+    } catch (error) {
+      const axiosError = error as AxiosError<ErrorResponse>
+      throw axiosError.response?.data || { message: "Network error occurred" }
+    }
+  },
+
+  dislikeArticle: async (articleId:string,userId:string) => {
+    try {
+      const response = await axiosInstance.post(`/articles/${articleId}/dislike`,{userId})
+      return response.data
+    } catch (error) {
+      const axiosError = error as AxiosError<ErrorResponse>
+      throw axiosError.response?.data || { message: "Network error occurred" }
+    }
+  },
+
+  blockArticle: async (articleId: string,userId:string) => {
+    try {
+      const response = await axiosInstance.post(`/articles/${articleId}/block`,{userId})
+      return response.data
+    } catch (error) {
+      const axiosError = error as AxiosError<ErrorResponse>
+      throw axiosError.response?.data || { message: "Network error occurred" }
+    }
+  },
 }
 
 export default userApi
