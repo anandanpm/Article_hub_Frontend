@@ -1,4 +1,4 @@
-import type { ArticleData, ArticleResponse, ErrorResponse, LoginData, UserData, UserLoginData } from '../entities/interface';
+import type { ArticleData, ArticleResponse, ArticleStatsResponse, ErrorResponse, LoginData, UserData, UserLoginData } from '../entities/interface';
 import axiosInstance from './axiosInstance';
 import { AxiosError } from 'axios';
 
@@ -81,7 +81,7 @@ import { AxiosError } from 'axios';
     }
   },
 
-  blockArticle: async (articleId: string,userId:string) => {
+  blockArticle: async (articleId: string,userId:string) => { 
     try {
       const response = await axiosInstance.post(`/articles/${articleId}/block`,{userId})
       return response.data
@@ -90,6 +90,19 @@ import { AxiosError } from 'axios';
       throw axiosError.response?.data || { message: "Network error occurred" }
     }
   },
+
+  getArticle: async (userId: string): Promise<ArticleStatsResponse> => {
+  try {
+    const response = await axiosInstance.get<ArticleStatsResponse>(`/articles/user/${userId}`);
+    console.log('Article response:', response.data);
+    return response.data;
+  } catch (error) {
+    const axiosError = error as AxiosError<ErrorResponse>;
+    throw axiosError.response?.data || { message: "Network error occurred" };
+  }
+},
 }
+
+
 
 export default userApi

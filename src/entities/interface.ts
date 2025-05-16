@@ -1,5 +1,6 @@
 
 export interface UserData {
+  message?: string;
   firstName: string;
   lastName: string;
   phone: string;
@@ -75,6 +76,10 @@ export interface AuthState {
   isLoading: boolean;
   error: { message: string } | null;
   registrationSuccess: boolean;
+    fieldErrors: {
+    email: string | null,
+    phone: string | null,
+  };
 }
 
 export interface ArticleFormValues {
@@ -115,4 +120,23 @@ export interface ArticleResponse {
   createdAt: string;
   updatedAt: string;
   [key: string]: any;
+}
+
+export interface ArticleDetails {
+  id: string
+  title: string
+  imageUrl: string
+  likes: number
+  dislikes: number
+  blocks: number
+  totalReaders: number
+  createdAt: string
+  category: string
+  tags: string[]
+}
+
+export interface ArticleStatsResponse {
+  articles: any;
+  data: any;
+  article: ArticleDetails
 }

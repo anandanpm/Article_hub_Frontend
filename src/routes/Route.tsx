@@ -8,6 +8,7 @@ import AppLayout from '../layout/Applayout';
 import Dashboard from '../pages/Dashboard';
 import ProtectedRoute from "./Protectroute"
 import ArticleDetail from '../pages/ArticleDetail';
+import MyArticle from '../pages/MyArticle';
 
 export const routes: RouteObject[] = [
   {
@@ -43,6 +44,10 @@ export const routes: RouteObject[] = [
           {
             path:"article/:articleid",
             element:React.createElement(ArticleDetail)
+          },
+          {
+            path:'articles',
+            element:React.createElement(MyArticle)
           }
         ]
       }

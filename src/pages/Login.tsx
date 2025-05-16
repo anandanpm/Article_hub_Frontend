@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 import "./Login.scss";
@@ -30,28 +30,28 @@ const Login: React.FC = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [clientSideSubmitting, setClientSideSubmitting] = useState(false);
 
-  // Redirect if authenticated
+
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/dashboard"); // Redirect to dashboard or home page when authenticated
+      navigate("/dashboard"); 
     }
   }, [isAuthenticated, navigate]);
 
-  // Clear previous errors when component mounts
+
   useEffect(() => {
     dispatch(clearError());
   }, [dispatch]);
 
-  // Define validation schema using Yup
+
   const loginSchema = yup.object().shape({
     identifier: yup
       .string()
       .required("Email or phone number is required")
       .test("is-valid", "Please enter a valid email or phone number", (value) => {
         if (!value) return false;
-        // Check if it's a valid email
+
         const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-        // Check if it's a valid phone number (basic validation)
+
         const phoneRegex = /^\+?[0-9]{10,15}$/;
         
         return emailRegex.test(value) || phoneRegex.test(value);
@@ -69,7 +69,7 @@ const Login: React.FC = () => {
       [name]: value,
     });
     
-    // Clear specific field error when the user starts typing again
+    
     if (errors[name as keyof FormErrors]) {
       setErrors({
         ...errors,
@@ -77,7 +77,7 @@ const Login: React.FC = () => {
       });
     }
     
-    // Clear Redux error when the user makes changes
+ 
     if (error) {
       dispatch(clearError());
     }
@@ -109,13 +109,12 @@ const Login: React.FC = () => {
     setErrors(validationErrors);
     
     if (Object.keys(validationErrors).length === 0) {
-      // Dispatch login action to Redux
+  
       try {
         const result = await dispatch(loginUser(values)).unwrap();
-        // Success handling is done by the useEffect that watches isAuthenticated
         console.log("Login successful:", result);
       } catch (err) {
-        // Error is handled by the Redux state
+     
         console.error("Login failed:", err);
       } finally {
         setClientSideSubmitting(false);
@@ -180,8 +179,15 @@ const Login: React.FC = () => {
           <div className="additional-options">
             <a href="/forgot-password" className="forgot-password">Forgot Password?</a>
             <p className="signup-prompt">
-              Don't have an account? <a href="/signup">Sign up</a>
-            </p>
+  Don't have an account?{" "}
+  <span 
+    className="signup-link" 
+    onClick={() => navigate("/register")} 
+    style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }}
+  >
+    Sign up
+  </span>
+</p>
           </div>
         </form>
         
