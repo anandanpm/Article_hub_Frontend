@@ -5,7 +5,7 @@ export interface UserData {
   lastName: string;
   phone: string;
   email: string;
-  dob: Date;
+  dob: Date|string;
   password: string;
   articlePreferences: string[];
 }
@@ -133,6 +133,7 @@ export interface ArticleDetails {
   createdAt: string
   category: string
   tags: string[]
+  description:string
 }
 
 export interface ArticleStatsResponse {

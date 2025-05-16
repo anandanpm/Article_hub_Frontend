@@ -1,4 +1,4 @@
-import type { ArticleData, ArticleResponse, ArticleStatsResponse, ErrorResponse, LoginData, UserData, UserLoginData } from '../entities/interface';
+import type { ArticleData, ArticleDetails, ArticleResponse, ArticleStatsResponse, ErrorResponse, LoginData, UserData, UserLoginData } from '../entities/interface';
 import axiosInstance from './axiosInstance';
 import { AxiosError } from 'axios';
 
@@ -101,7 +101,62 @@ import { AxiosError } from 'axios';
     throw axiosError.response?.data || { message: "Network error occurred" };
   }
 },
+
+deleteArticle:async(articleid:string):Promise<void>=>{
+  try {
+    const response = await axiosInstance.delete<any>(`/articles/delete/${articleid}`)
+    return response.data
+    
+  } catch (error) {
+     const axiosError = error as AxiosError<ErrorResponse>;
+    throw axiosError.response?.data || { message: "Network error occurred" };
+  }
+},
+
+updateArticle:async(articleid:string,editingArticle:ArticleDetails):Promise<void>=>{
+  try {
+    const response = await axiosInstance.patch<any>(`/articles/edit/${articleid}`,{editingArticle})
+    return response.data
+    
+  } catch (error) {
+     const axiosError = error as AxiosError<ErrorResponse>;
+    throw axiosError.response?.data || { message: "Network error occurred" };
+  }
+},
+
+getProfile:async(userId:string):Promise<any>=>{
+  try{
+    const response = await axiosInstance.get(`/user/profile/${userId}`)
+    return response.data
+  } catch (error) {
+     const axiosError = error as AxiosError<ErrorResponse>;
+    throw axiosError.response?.data || { message: "Network error occurred" };
+  }
+},
+
+updateProfile:async(details:Partial<UserData>):Promise<any>=>{
+  try {
+    const response = await axiosInstance.put('/user/profiles',{details})
+    return response.data
+  } catch (error) {
+    const axiosError = error as AxiosError<ErrorResponse>;
+    throw axiosError.response?.data || { message: "Network error occurred" };
+  }
+},
+
+changePassword:async(currentPassword:string,newPassword:string,userid:string):Promise<any>=>{
+  try{
+    const response = await axiosInstance.patch('/user/newpassword',{currentPassword,newPassword,userid})
+    return response.data
+  }catch(error){
+ const axiosError = error as AxiosError<ErrorResponse>;
+    throw axiosError.response?.data || { message: "Network error occurred" };
+  }
 }
+
+
+}
+
 
 
 

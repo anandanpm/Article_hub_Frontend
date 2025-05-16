@@ -13,7 +13,7 @@ const MyArticles: React.FC = () => {
   const [error, setError] = useState<string | null>(null)
   const [searchTerm, setSearchTerm] = useState<string>("")
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const articlesPerPage = 5
+  const articlesPerPage = 3
   const userId = useSelector((state: ReduxData) => state.user.user.id)
 
   // Fetch articles
@@ -105,16 +105,17 @@ const MyArticles: React.FC = () => {
   if (selectedArticle) {
     return (
       <div className="article-detail-container">
-        <button className="back-button" onClick={handleBackToList}>
-          <ArrowLeft size={18} />
-          Back to My Articles
-        </button>
-
         <div className="article-header">
           <div className="article-meta">
+            <div className = 'article-back'>
             {selectedArticle.category && (
               <span className="article-category">{selectedArticle.category}</span>
             )}
+             <button className="back-button" onClick={handleBackToList}>
+          <ArrowLeft size={18} />
+          Back to My Articles
+        </button>
+        </div>
             <h1 className="article-title">{selectedArticle.title}</h1>
             <div className="article-info">
               {selectedArticle.createdAt && (
@@ -175,7 +176,7 @@ const MyArticles: React.FC = () => {
   // Display articles list view as a table
   return (
     <div className="articles-list-container">
-      <h1 className="page-title">ARTICLE LIST</h1>
+      <h1 className="page-title">Article Status</h1>
       
       <div className="search-container">
         <Search size={20} className="search-icon" />
