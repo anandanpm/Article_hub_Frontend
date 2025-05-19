@@ -123,6 +123,7 @@ const MyArticles: React.FC = () => {
                   <span>Published on {formatDate(selectedArticle.createdAt)}</span>
                 </div>
               )}
+                
               <div className="info-item">
                 <span>{selectedArticle.totalReaders || 0} readers</span>
               </div>
@@ -146,6 +147,11 @@ const MyArticles: React.FC = () => {
               ))}
             </div>
           )}
+          {selectedArticle.description && (
+                <div className="article-description">
+                  <span> {selectedArticle.description}</span>
+                </div>
+              )}
 
           <div className="article-engagement">
             <h3 className="engagement-title">Article Statistics</h3>

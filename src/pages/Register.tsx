@@ -21,6 +21,7 @@ const articleCategories = [
   { id: "sports", label: "Sports" },
   { id: "politics", label: "Politics" },
   { id: "education", label: "Education" },
+  {id:'movies',label:'Movies'}
 ]
 
 // Validation schema using Yup

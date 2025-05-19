@@ -26,6 +26,7 @@ const ArticleCreationPage: React.FC = () => {
     'politics',
     'travel',
     'education',
+    'movies',
     'other'
   ];
 
