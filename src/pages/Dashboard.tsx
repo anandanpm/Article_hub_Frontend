@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import { Heart, ThumbsDown, X, AlertCircle } from "lucide-react"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom" // Import for navigation
-import "./dashboard.scss"
+import "./Dashboard.scss"
 import userApi from "../api/userApi"
 import type { ReduxData } from "../entities/interface"
 
