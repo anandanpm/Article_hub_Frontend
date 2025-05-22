@@ -160,6 +160,7 @@ const userSlice = createSlice({
     });
     
     builder.addCase(logoutUser.fulfilled, (state) => {
+      state.isLoading = false;
       state.isAuthenticated = false;
       state.user = null;
       state.error = null;
